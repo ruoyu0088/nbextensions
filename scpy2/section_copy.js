@@ -1,17 +1,15 @@
-
-/*
- * IPython Notebook's Section Cut-Copy-Paste
- * Author: ruoyu0088@gmail.com
- 
-require(["nbextensions/section-copy-paste"], function (copy_paste) {
-    console.log('copy_paste extension loaded');
-    copy_paste.load_ipython_extension();
-});
-
-*/
-
-define( function (){
-
+(function(IPython){
+    
+    var get_level = function(text){
+        var res = text.match(/^#+/g)||[];
+        if(res.length > 0){
+            return res[0].length;
+        }
+        else{
+            return 0;
+        }
+    };
+    
     var show_copy_box = function(text) {
         var that = this;
         var title = "Copy";
@@ -57,14 +55,15 @@ define( function (){
     var copy_section = function(){
         var cells, cell, level, i;
         cell = IPython.notebook.get_selected_cell();
-        if(cell.cell_type != "heading") return "";
-        level = cell.level;
+        if(cell.cell_type != "markdown") return "";
+        level = get_level(cell.get_text());
+        if(level == 0) return "";
         cells = [];
         while(true){
             cells.push(cell.toJSON());
             cell = IPython.notebook.get_next_cell(cell);
             if(cell == null) break;
-            if(cell.cell_type == "heading" && cell.level == level) break;
+            if(cell.cell_type == "markdown" && get_level(cell.get_text()) == level) break;
         }
         return JSON.stringify(cells);    
     };
@@ -102,14 +101,6 @@ define( function (){
         IPython.keyboard_manager.command_shortcuts.add_shortcut("shift-space", paste_settings, true);    
     };
     
-    var load_ipython_extension = function (){
-         $([IPython.events]).on("notebook_loaded.Notebook", function () {
-            register_section_copy_paste_keys();
-         });
-    };
+    register_section_copy_paste_keys();
 
-    return {
-        load_ipython_extension : load_ipython_extension,
-    };
-
-});
+}(IPython));
