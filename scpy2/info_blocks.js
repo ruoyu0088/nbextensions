@@ -1,6 +1,7 @@
 (function(IPython){
     var format_block = function(cell, evt){      
-        var block_types = { TIP: "fa-lightbulb-o", WARNING: "fa-warning", LINK: "fa-link", SOURCE: "fa-file-text"};
+        var block_types = { TIP: "fa-lightbulb-o", WARNING: "fa-warning", 
+        LINK: "fa-link", SOURCE: "fa-file-text", QUESTION: "fa-question"};
         var cell = evt.cell;
         if(cell.get_rendered == undefined){
             return;
