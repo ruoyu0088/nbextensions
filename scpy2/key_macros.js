@@ -11,7 +11,12 @@
         "9":"❾",
         "fig":'![](/files/images/.png "")',
         "next":'`ref:fig-next`',
-        "prev":'`ref:fig-prev`'
+        "prev":'`ref:fig-prev`',
+        "tip":'> **TIP**\n\n> ',
+        "source":'> **SOURCE**\n\n> ',
+        "warning":'> **WARNING**\n\n> ',
+        "question":'> **QUESTION**\n\n> ',
+        "link":'> **LINK**\n\n> \n\n> ',        
      };
  
     var data = {
